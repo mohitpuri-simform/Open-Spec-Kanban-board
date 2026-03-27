@@ -1,3 +1,5 @@
+<img width="1845" height="965" alt="image" src="https://github.com/user-attachments/assets/41630f30-5264-437b-87bc-bc65f33de8cb" />
+
 # Kanban Board
 
 A Trello-style kanban board built with React, TypeScript, and Vite. Supports multiple named workspaces, full list and card management, drag-and-drop, and automatic localStorage persistence — all client-side with no backend required.
