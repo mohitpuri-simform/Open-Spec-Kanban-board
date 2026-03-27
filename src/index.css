@@ -1,0 +1,28 @@
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;700&display=swap");
+@import "tailwindcss";
+
+:root {
+  font-family: "Space Grotesk", "Avenir Next", "Segoe UI", sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  color: #1f2430;
+  background:
+    radial-gradient(
+      circle at 12% 22%,
+      rgba(15, 118, 110, 0.18),
+      transparent 38%
+    ),
+    radial-gradient(
+      circle at 88% 8%,
+      rgba(249, 115, 22, 0.14),
+      transparent 44%
+    ),
+    linear-gradient(145deg, #f8f4ea 0%, #efe8d8 100%);
+}
+
+#root {
+  min-height: 100vh;
+}
