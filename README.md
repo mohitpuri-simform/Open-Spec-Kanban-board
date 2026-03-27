@@ -1,73 +1,82 @@
-# React + TypeScript + Vite
+# Kanban Board
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A Trello-style kanban board built with React, TypeScript, and Vite. Supports multiple named workspaces, full list and card management, drag-and-drop, and automatic localStorage persistence — all client-side with no backend required.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+### Multiple Workspaces
 
-## React Compiler
+- Create as many workspaces as you need from the persistent sidebar
+- Switch between workspaces instantly — each one keeps its own independent board state
+- First workspace defaults to **Workspace 1**; additional ones are named sequentially
+- Rename the active workspace directly from the header — blank names are rejected and the previous name is restored
+- The browser tab title always reflects the active workspace name
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Lists
 
-## Expanding the ESLint configuration
+- Add, rename, and delete lists within any workspace
+- Lists wrap vertically when the board fills up — no horizontal scrolling required
+- Each list renders as a focused column with its own card stack
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Cards
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- Add cards to any list with a title and optional description
+- Edit or delete cards inline
+- Drag cards to reorder them within a list or move them to a different list
+- Empty lists remain valid drop targets
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Persistence
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- All workspace and board data is saved to `localStorage` automatically on every change
+- Data is restored on page reload with no user action required
+- Legacy single-board data from older versions is automatically migrated into **Workspace 1**
+- Invalid or corrupted storage falls back to a clean default state safely
+
+### Modern UI
+
+- Built with Tailwind CSS — responsive sidebar-plus-board shell
+- Warm parchment-toned palette with teal accents
+- Accessible keyboard navigation, focus rings, and ARIA labels throughout
+- Polished empty states with clear calls to action for new workspaces
+
+## Tech Stack
+
+| Layer       | Technology                      |
+| ----------- | ------------------------------- |
+| Framework   | React 18 + TypeScript           |
+| Build       | Vite 5                          |
+| Styling     | Tailwind CSS v4                 |
+| State       | React hooks (no external store) |
+| Persistence | Browser `localStorage`          |
+
+## Getting Started
+
+```bash
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+
+# Build for production
+npm run build
+
+# Preview production build
+npm run preview
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Project Structure
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+src/
+├── components/
+│   ├── Board.tsx        # Active workspace board, header, and list management
+│   ├── ListColumn.tsx   # Individual list with card stack and add-card form
+│   └── CardItem.tsx     # Draggable card with inline edit and delete
+├── hooks/
+│   └── useBoardState.ts # Workspace state, persistence, and mutation helpers
+├── storage.ts           # localStorage read/write with migration and validation
+├── types.ts             # Board, list, card, workspace types and immutable helpers
+├── App.tsx              # Root shell: sidebar + active board
+└── index.css            # Tailwind entry and base styles
 ```
